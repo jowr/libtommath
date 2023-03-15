@@ -16,6 +16,16 @@ static mp_err s_read_arc4random(void *p, size_t n)
 }
 #endif
 
+/* Add a dummy function for s_read_arc4random
+ */
+#if !defined(S_READ_ARC4RANDOM_C)
+static mp_err s_read_arc4random(void *p, size_t n)
+{
+    (void)p; (void)n;
+    return MP_ERR;
+}
+#endif
+
 #if defined(_WIN32)
 #define S_READ_WINCSP_C
 
@@ -47,6 +57,16 @@ static mp_err s_read_wincsp(void *p, size_t n)
 }
 #endif /* WIN32 */
 
+/* Add a dummy function for s_read_wincsp
+ */
+#if !defined(S_READ_WINCSP_C)
+static mp_err s_read_wincsp(void *p, size_t n)
+{
+    (void)p; (void)n;
+    return MP_ERR;
+}
+#endif
+
 #if !defined(S_READ_WINCSP_C) && defined(__linux__) && defined(__GLIBC_PREREQ)
 #if __GLIBC_PREREQ(2, 25)
 #define S_READ_GETRANDOM_C
@@ -70,6 +90,16 @@ static mp_err s_read_getrandom(void *p, size_t n)
    return MP_OKAY;
 }
 #endif
+#endif
+
+/* Add a dummy function for s_read_getrandom
+ */
+#if !defined(S_READ_GETRANDOM_C)
+static mp_err s_read_getrandom(void *p, size_t n)
+{
+    (void)p; (void)n;
+    return MP_ERR;
+}
 #endif
 
 /* We assume all platforms besides windows provide "/dev/urandom".
@@ -109,6 +139,16 @@ static mp_err s_read_urandom(void *p, size_t n)
 
    close(fd);
    return MP_OKAY;
+}
+#endif
+
+/* Add a dummy function for s_read_urandom
+ */
+#if !defined(S_READ_URANDOM_C)
+static mp_err s_read_urandom(void *p, size_t n)
+{
+    (void)p; (void)n;
+    return MP_ERR;
 }
 #endif
 
